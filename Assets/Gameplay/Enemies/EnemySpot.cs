@@ -1,8 +1,5 @@
 ﻿using Assets.Gameplay.Abstract;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Gameplay.Enemies
