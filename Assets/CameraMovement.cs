@@ -16,6 +16,7 @@ namespace Assets
 
         private void Update()
         {
+            if (_character == null) return;
             var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             Vector2 targetPosition = (_character.transform.position * 3 + mousePosition) / 4f;

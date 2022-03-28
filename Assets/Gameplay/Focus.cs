@@ -18,6 +18,7 @@ namespace Assets.Gameplay
         private Character _character;
         private bool _piercing;
         private FocusVisual _visual;
+
         private void Start()
         {
             _character = FindObjectOfType<Character>();
@@ -27,6 +28,7 @@ namespace Assets.Gameplay
 
         private void Update()
         {
+            if (_character == null) return;
             if (Vector2.Distance(transform.position, _character.transform.position) > 1f)
             {
                 transform.position = Vector2.Lerp(transform.position, _character.transform.position, _followSpeed * Time.deltaTime);
@@ -37,6 +39,8 @@ namespace Assets.Gameplay
 
         public void Charge(Character character)
         {
+            if (_character == null) return;
+
             _charge += Time.deltaTime;
             _charge = Mathf.Clamp(_charge, 0, _chargeTime);
 
@@ -55,6 +59,8 @@ namespace Assets.Gameplay
         }
         public void Shoot(Character character)
         {
+            if (_character == null) return;
+
             if (_charge > _minChargeTime)
             {
                 var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -73,6 +79,8 @@ namespace Assets.Gameplay
 
         public void Ultimate(Character character)
         {
+            if (_character == null) return;
+
             character.SpendStamina(character.Stamina);
             Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
             var spell = new Spell(character.GetCurrentSpell().Damage*Time.deltaTime/2, character.GetCurrentSpell().SpellElement);

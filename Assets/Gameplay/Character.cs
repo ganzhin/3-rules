@@ -126,6 +126,7 @@ namespace Assets.Gameplay
         public void Death()
         {
             Debug.Log($"{this} is dead");
+            Destroy(this);
         }
 
         public void Move()

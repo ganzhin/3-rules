@@ -4,7 +4,6 @@ using Assets.Gameplay.Rules;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Assets.Gameplay
@@ -42,9 +41,12 @@ namespace Assets.Gameplay
                 {
                     Transform pointer = _pointers[i];
                     Transform target = _enemies[i];
-                    if (target != null && Vector3.Distance(FindObjectOfType<Character>().transform.position, target.position) > 7f)
+                    if (FindObjectOfType<Character>())
                     {
-                        pointer.transform.position = Vector3.MoveTowards(FindObjectOfType<Character>().transform.position, target.position, 2);
+                        if (target != null && Vector3.Distance(FindObjectOfType<Character>().transform.position, target.position) > 7f)
+                        {
+                            pointer.transform.position = Vector3.MoveTowards(FindObjectOfType<Character>().transform.position, target.position, 2);
+                        }
                     }
                 }
             }
@@ -52,6 +54,8 @@ namespace Assets.Gameplay
 
         public void Rest()
         {
+            if (!FindObjectOfType<Character>()) return;
+
             FindObjectOfType<Levels>().CheckLastMob();
             foreach(var enemy in FindObjectsOfType<Enemy>())
             {
@@ -80,6 +84,8 @@ namespace Assets.Gameplay
 
         public IEnumerator TransitionRoutine()
         {
+            if (!FindObjectOfType<Character>()) yield break;
+
             _transitionImage.gameObject.SetActive(true);
             yield return null;
             for (float i = 0; i <= 1; i+= Time.deltaTime)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Gameplay.Rules
@@ -38,6 +39,7 @@ namespace Assets.Gameplay.Rules
 
         private bool _win;
         [SerializeField] private GameObject _winText;
+        [SerializeField] private GameObject _looseText;
 
         private void Start()
         {
@@ -57,7 +59,19 @@ namespace Assets.Gameplay.Rules
 
         private void Update()
         {
+            if (FindObjectOfType<Character>() == null) _looseText.SetActive(true);
             Time.timeScale = FasterGame ? 1.5f : 1;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (_win)
+                {
+                    Application.Quit();
+                }
+                if (FindObjectOfType<Character>() == null)
+                {
+                    SceneManager.LoadScene(0);
+                }
+            }
         }
 
         public void CheckLastMob()

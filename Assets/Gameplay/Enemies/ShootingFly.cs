@@ -34,6 +34,7 @@ namespace Assets.Gameplay.Enemies
 
         public override void Move()
         {
+            if (!FindObjectOfType<Character>()) return;
             if (Vector2.Distance(transform.position, FindObjectOfType<Character>().transform.position) > 5)
                 base.Move();
             else
@@ -42,6 +43,7 @@ namespace Assets.Gameplay.Enemies
 
         public override void Shoot()
         {
+            if (!FindObjectOfType<Character>()) return;
             var target = FindObjectOfType<Character>().transform.position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0)  - transform.position;
 
             Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
