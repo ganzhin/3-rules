@@ -1,6 +1,8 @@
 ﻿using Assets.Gameplay.Abstract;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Gameplay.Enemies
@@ -9,25 +11,18 @@ namespace Assets.Gameplay.Enemies
     {
         [SerializeField] private int _enemyAmount = 5;
         [SerializeField] private Enemy _enemyPrefab;
+        private List<Transform> _enemies = new List<Transform>();
 
-        void Start()
-        {
-            RespawnEnemies();
-        }
-
-        public void RespawnEnemies()
-        {
-            StartCoroutine(RespawnByTime());
-        }
-
-        public IEnumerator RespawnByTime()
+        public List<Transform> RespawnEnemies()
         {
             for (int i = 0; i < _enemyAmount; i++)
             {
                 Vector2 position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle;
-                Instantiate(_enemyPrefab, position, Quaternion.identity);
-                yield return new WaitForSeconds(.2f);
+                var enemy = Instantiate(_enemyPrefab, position, Quaternion.identity);
+                _enemies.Add(enemy.transform);
             }
+
+            return _enemies;
         }
     }
 }

@@ -5202,6 +5202,7 @@ MonoBehaviour:
   _uiCanvas: {fileID: 1033042400}
   _fireplaceCanvas: {fileID: 2126389489}
   _transitionImage: {fileID: 1964953294}
+  _targetPointerPrefab: {fileID: 2916201106060223904, guid: 26b2f833094dc8841a14d3dc9e9ca6ab, type: 3}
 --- !u!212 &103124903
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16695,7 +16696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17038,7 +17039,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.45113918, g: 0.5740442, b: 0.6981132, a: 1}
-  m_Intensity: 0.27
+  m_Intensity: 0.13
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000

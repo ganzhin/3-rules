@@ -49,7 +49,7 @@ namespace Assets.Gameplay
                 var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
                 Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-                Vector2 direction = Vector3.Normalize(mousePosition);
+                Vector2 direction = mousePosition.normalized;
                 float charge = Mathf.Lerp(0, 1.2f, _charge / _chargeTime);
                 bullet.Init(direction, character, character.GetCurrentSpell(), charge, _piercing);
                 _charge = 0;

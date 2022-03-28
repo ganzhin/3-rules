@@ -9765,7 +9765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _charge: 0
-  _speed: 10
+  _speed: 20
   _lifeTime: 3
 --- !u!114 &7784950203217169290
 MonoBehaviour:

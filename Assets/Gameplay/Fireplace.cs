@@ -1,7 +1,9 @@
 ﻿using Assets.Gameplay.Abstract;
 using Assets.Gameplay.Enemies;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Assets.Gameplay
@@ -13,10 +15,40 @@ namespace Assets.Gameplay
 
         [SerializeField] private Image _transitionImage;
 
+        [SerializeField] private GameObject _targetPointerPrefab;
+        private List<Transform> _pointers = new List<Transform>();
+        private List<Transform> _enemies = new List<Transform>();
+
         private void Start()
         {
             _transitionImage.gameObject.SetActive(false);
+            for (int i = 0; i < 50; i++)
+            {
+                _pointers.Add(Instantiate(_targetPointerPrefab).transform);
+            }
         }
+
+        private void Update()
+        {
+            foreach (var pointer in _pointers)
+            {
+                pointer.transform.position = Vector3.forward * 1000;
+            }
+
+            if (_enemies.Count > 0)
+            {
+                for (int i = 0; i < _enemies.Count; i++)
+                {
+                    Transform pointer = _pointers[i];
+                    Transform target = _enemies[i];
+                    if (target != null && Vector3.Distance(FindObjectOfType<Character>().transform.position, target.position) > 7f)
+                    {
+                        pointer.transform.position = Vector3.MoveTowards(FindObjectOfType<Character>().transform.position, target.position, 2);
+                    }
+                }
+            }
+        }
+
         public void Rest()
         {
             foreach(var enemy in FindObjectsOfType<Enemy>())
@@ -36,7 +68,7 @@ namespace Assets.Gameplay
         {
             foreach (var enemySpot in FindObjectsOfType<EnemySpot>())
             {
-                enemySpot.RespawnEnemies();
+                _enemies.AddRange(enemySpot.RespawnEnemies());
             }
 
             _uiCanvas.SetActive(true);
