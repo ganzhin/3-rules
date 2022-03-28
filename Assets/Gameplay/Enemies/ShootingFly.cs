@@ -6,9 +6,6 @@ namespace Assets.Gameplay.Enemies
 {
     public class ShootingFly : SimpleFly
     {
-        [SerializeField] private float _health;
-        [SerializeField] private float _maxHealth;
-        [SerializeField] private float _damage;
         [SerializeField] private Bullet _bulletPrefab;
 
         private float _shootingCooldown = 2f;

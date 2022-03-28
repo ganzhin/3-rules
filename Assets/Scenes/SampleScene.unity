@@ -6499,7 +6499,7 @@ MonoBehaviour:
   _grassPrefab: {fileID: 3282458586684408508, guid: 23b48390f4f72fd4296f3e8e456698af, type: 3}
   _treeAmount: 50
   _lakeAmount: 5
-  _grassAmount: 0
+  _grassAmount: 100
   _spawners:
   - {fileID: 5041018744947556904, guid: eb7620dbd39fa4d4eb28a77926903b2b, type: 3}
   - {fileID: 9007055531772860376, guid: 41e8029c11689a748aa9d47abed65d9d, type: 3}

@@ -41,6 +41,11 @@ namespace Assets.Gameplay.Abstract
             return null;
         }
 
+        public void Heal(float heal)
+        {
+            Health = Mathf.Clamp(Health + heal, 0, MaxHealth);
+        }
+
         public void TakeDamage(Spell spell, float charge = 1)
         {
             if (!Immortality)

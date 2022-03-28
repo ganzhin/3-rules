@@ -17,10 +17,7 @@ namespace Assets.Gameplay.Abstract
         public void Shoot();
         public void TakeDamage(Spell spell, float charge = 1);
         public void Death();
-        public virtual void Heal(float heal)
-        {
-            Health = Mathf.Clamp(Health + heal, 0, MaxHealth);
-        }
+        public void Heal(float heal);
 
         public IEnumerator ImmortalityFrames();
     }

@@ -129,6 +129,11 @@ namespace Assets.Gameplay
             Destroy(this);
         }
 
+        public void Heal(float heal)
+        {
+            Health = Mathf.Clamp(Health + heal, 0, MaxHealth);
+        }
+
         public void Move()
         {
             _rigidbody.velocity = _controls.Direction * _movementSpeed;

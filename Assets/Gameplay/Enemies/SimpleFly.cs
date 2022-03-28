@@ -7,9 +7,9 @@ namespace Assets.Gameplay.Enemies
 {
     public class SimpleFly : Enemy
     {
-        [SerializeField] private float _health;
-        [SerializeField] private float _maxHealth;
-        [SerializeField] private float _damage;
+        internal float _health = 5;
+        internal float _maxHealth = 5;
+        internal float _damage = 1.2f;
 
         public override float Health { get => _health; set { _health = value; } }
         public override float MaxHealth { get => _maxHealth; set { _maxHealth = value; } }
@@ -18,6 +18,7 @@ namespace Assets.Gameplay.Enemies
         public virtual void Start()
         {
             if (Levels.StrongerFlies) _damage *= 1.25f;
+            _rigidbody = GetComponent<Rigidbody2D>();
         }
 
         public virtual void Update()
