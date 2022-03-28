@@ -1,6 +1,8 @@
 using Assets.Gameplay.Abstract;
 using Assets.Gameplay.Magic;
 using Assets.Gameplay.Magic.UI;
+using Assets.Gameplay.Rules;
+using Mono.Cecil.Cil;
 using System.Collections;
 using UnityEngine;
 
@@ -79,7 +81,10 @@ namespace Assets.Gameplay
             
             if (_staminaSpent == false)
             {
-                RecoverStamina(Time.deltaTime);
+                if (!Levels.StaminaFreeze || _rigidbody.velocity == Vector2.zero)
+                {
+                    RecoverStamina(Time.deltaTime);
+                }
             }
             if (_controls.E) { if (!_rest) Shield(); CampRest(); }
 
@@ -91,8 +96,8 @@ namespace Assets.Gameplay
         {
             if (!_controls.RMB || _dashTimer < .1f || _stamina <= 0)
             {
-                if (!_rest)
-                Move();
+                if (!_rest && !Levels.OnlyDash)
+                    Move();
             }
             if (!_controls.RMB)
             {
@@ -101,10 +106,16 @@ namespace Assets.Gameplay
 
             if (_rest) _rigidbody.velocity = Vector3.zero;
 
+            if (Levels.RegenerationWeakness)
+            {
+                ((IUnit)this).Heal(Time.deltaTime * .1f);
+            }
+
             _shieldTimer = Mathf.Clamp(_shieldTimer + Time.deltaTime, 0, _shieldCooldown);
             _ultimateTimer = Mathf.Clamp(_ultimateTimer + Time.deltaTime, 0, _ultimateCooldown);
             _barsUI.UpdateHealth(Health, MaxHealth);
             _barsUI.UpdateQE(_ultimateTimer / _ultimateCooldown, _shieldTimer / _shieldCooldown);
+        
         }
 
         private void RotateSpells()
@@ -124,11 +135,15 @@ namespace Assets.Gameplay
 
         public void Dash()
         {
+            if (Levels.NoDashes) return;
+
             if (_dashTimer > .1 && _stamina > 0)
             {
+                if (Levels.HealDashes) ((IUnit)this).Heal(Time.deltaTime);
                 _rigidbody.AddForce(_dashDistance * _controls.Direction, ForceMode2D.Impulse);
                 _dashTimer -= Time.deltaTime;
                 SpendStamina(Time.fixedDeltaTime * 2);
+                if (Levels.ImmortalityDashes) StartCoroutine(ImmortalityFrames());
             }
         }
 
@@ -147,6 +162,7 @@ namespace Assets.Gameplay
 
         public void Shield()
         {
+            if (Levels.NoShield) return;
             if (_shieldTimer == _shieldCooldown)
                 StartCoroutine(ShieldRoutine());
         }
@@ -234,7 +250,7 @@ namespace Assets.Gameplay
         {
             if (!Immortality)
             {
-                Health -= spell.GetResultDamage(Armor, _shieldIsActive, Weakness) * charge;
+                Health -= spell.GetResultDamage(Armor, _shieldIsActive, Weakness) * charge * (Levels.RegenerationWeakness ? 2 : 1);
 
                 if (Health <= 0)
                 {

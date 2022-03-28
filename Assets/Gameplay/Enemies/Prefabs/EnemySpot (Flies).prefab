@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &269372487955711005
+--- !u!1 &5041018744947556904
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5175413008455243096}
-  - component: {fileID: 412496717228567250}
+  - component: {fileID: 115556177250308973}
+  - component: {fileID: 4895747711721942247}
+  - component: {fileID: 3928661163259019033}
   m_Layer: 0
   m_Name: EnemySpot (Flies)
   m_TagString: Untagged
@@ -17,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5175413008455243096
+--- !u!4 &115556177250308973
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269372487955711005}
+  m_GameObject: {fileID: 5041018744947556904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.9253516, y: -2.4814358, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,17 +33,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &412496717228567250
+--- !u!114 &4895747711721942247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269372487955711005}
+  m_GameObject: {fileID: 5041018744947556904}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e08891f466a12a344b6cd553fa68f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAmount: 5
+  _enemyAmount: 4
   _enemyPrefab: {fileID: 6014337745307497492, guid: 7f4c8ac20032c8546875d20017dbfc28, type: 3}
+--- !u!114 &3928661163259019033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5041018744947556904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d9fb973d5efdd449098a5a5b9adfad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

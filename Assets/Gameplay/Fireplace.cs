@@ -1,5 +1,6 @@
 ﻿using Assets.Gameplay.Abstract;
 using Assets.Gameplay.Enemies;
+using Assets.Gameplay.Rules;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,9 +52,11 @@ namespace Assets.Gameplay
 
         public void Rest()
         {
+            FindObjectOfType<Levels>().CheckLastMob();
             foreach(var enemy in FindObjectsOfType<Enemy>())
             {
                 Destroy(enemy.gameObject);
+                _enemies.Remove(enemy.transform);
             }
             IUnit character = FindObjectOfType<Character>();
             character.Heal(character.MaxHealth);

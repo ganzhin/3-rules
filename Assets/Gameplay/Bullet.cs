@@ -1,5 +1,6 @@
 ﻿using Assets.Gameplay.Abstract;
 using Assets.Gameplay.Magic;
+using Assets.Gameplay.Rules;
 using UnityEngine;
 
 namespace Assets.Gameplay
@@ -52,7 +53,9 @@ namespace Assets.Gameplay
             var unit = other.gameObject.GetComponent<IUnit>();
             if (unit != null && unit.GetType() != _sourceUnit.GetType())
             {
-                unit.TakeDamage(_spell, _charge);
+                var multiplier = Levels.LowHpBuild && unit.Health <= unit.MaxHealth / 5 ? 1.3f : 1;
+                multiplier += Levels.FirstAttackBuff && unit.Health == unit.MaxHealth ? 0.25f : 0;
+                unit.TakeDamage(_spell, _charge * multiplier);
                 if (!_piercing)
                 {
                     Destroy(gameObject);

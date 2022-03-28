@@ -1,5 +1,6 @@
 ﻿using Assets.Gameplay.Abstract;
 using Assets.Gameplay.Magic;
+using Assets.Gameplay.Rules;
 using Assets.Visual;
 using UnityEngine;
 
@@ -40,7 +41,17 @@ namespace Assets.Gameplay
             _charge = Mathf.Clamp(_charge, 0, _chargeTime);
 
             if (_charge < _chargeTime)
-                character.SpendStamina(Time.deltaTime * character.GetCurrentSpell().StaminaCost);
+            {
+                if (Levels.HealthShoots)
+                {
+                    Spell spell = new Spell(Time.deltaTime, Element.Fire);
+                    character.TakeDamage(spell, 1);
+                }
+                else
+                {
+                    character.SpendStamina(Time.deltaTime * character.GetCurrentSpell().StaminaCost);
+                }
+            }
         }
         public void Shoot(Character character)
         {
@@ -48,10 +59,14 @@ namespace Assets.Gameplay
             {
                 var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
-                Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-                Vector2 direction = mousePosition.normalized;
-                float charge = Mathf.Lerp(0, 1.2f, _charge / _chargeTime);
-                bullet.Init(direction, character, character.GetCurrentSpell(), charge, _piercing);
+                if ((Levels.OnlyCharged && _charge >= _chargeTime) || !Levels.OnlyCharged)
+                {
+                    if (Levels.NoCharged && _charge >= _chargeTime) { _charge = 0; return; }
+                    Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
+                    Vector2 direction = mousePosition.normalized;
+                    float charge = Mathf.Lerp(0, 1.2f, _charge / _chargeTime);
+                    bullet.Init(direction, character, character.GetCurrentSpell(), charge, _piercing);
+                }
                 _charge = 0;
             }
         }

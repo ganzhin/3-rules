@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2266105315791813286}
   - component: {fileID: 8540629076298476104}
   m_Layer: 0
-  m_Name: lake
+  m_Name: Lake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

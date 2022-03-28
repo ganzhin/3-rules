@@ -14,13 +14,13 @@ namespace Assets.Gameplay.Enemies
         private float _shootingCooldown = 2f;
         private float _shootingTimer;
 
-        private void Start()
+        public override void Start()
         {
             _shootingTimer = _shootingCooldown;
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        public override void Update()
         {
             _shootingTimer -= Time.deltaTime;
             
